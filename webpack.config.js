@@ -8,7 +8,7 @@ module.exports = {
     filename: 'bundle.js', // Archivo de salida
   },
   devServer: {
-    static: './dist', // Carpeta donde lanzara los archivos
+    static: __dirname, // Sirve index.html desde la raíz del proyecto
     port: 3000, // Puerto del servidor de desarrollo
     open: true, // Abre el navegador automáticamente
     hot: true, // Habilita recarga en vivo

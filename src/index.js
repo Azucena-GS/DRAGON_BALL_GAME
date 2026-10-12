@@ -109,7 +109,7 @@ const animarAtaque = (numero, tipo) => {
         direccion = -32;
     }
 
-    const rutaBase = `./public/img/${personaje}`;
+    const rutaBase = `./dist/public/img/${personaje}`;
 
     imagen.src = `${rutaBase}/${tipo}.png`;
     const movimiento = imagen.animate([
@@ -216,13 +216,13 @@ const iniciar_juego = (numero) => {
     if (numero === 1) {
         username1.innerText = nombre1.value;
         personaje1.innerText = pj1;
-        img1.src = `./public/img/${pj1}/base.png`;
+        img1.src = `./dist/public/img/${pj1}/base.png`;
         actualizarEstadoJugador(1, jugador1);
         actualizarBotonesJugador(1, jugador1);
     } else {
         username2.innerText = nombre2.value;
         personaje2.innerText = pj2;
-        img2.src = `./public/img/${pj2}/base.png`;
+        img2.src = `./dist/public/img/${pj2}/base.png`;
         actualizarEstadoJugador(2, jugador2);
         actualizarBotonesJugador(2, jugador2);
     }

@@ -17,12 +17,12 @@
                 <div class="form-floating border border-danger rounded mb-3">
                     <input type="text" id="player1" class="form-control" placeholder="Jugador 1">
                     <label class="text-danger" for="player1"><i class="fa-solid fa-user me-2"></i>Jugador 1</label>
-                </div>                
+                </div>
             </div>
             <div class="col-md-5">
                 <div class="form-floating border border-primary rounded mb-3">
                     <input type="text" id="player2" class="form-control" placeholder="Jugador 2">
-                    <label class="text-primary" for="player1"><i class="fa-solid fa-user me-2"></i>Jugador 2</label>
+                    <label class="text-primary" for="player2"><i class="fa-solid fa-user me-2"></i>Jugador 2</label>
                 </div>
             </div>
         </div>
@@ -31,16 +31,16 @@
                 <p class="text-danger">Seleccionar personaje</p>
                 <div class="row mt-4">
                     <div class="col-3">
-                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./public/img/seleccion/sc01.webp" alt="Vegitto">
+                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./dist/public/img/seleccion/sc01.webp" alt="Vegitto">
                     </div>
                     <div class="col-3">
-                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./public/img/seleccion/sc03.webp" alt="Trunks">
+                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./dist/public/img/seleccion/sc03.webp" alt="Trunks">
                     </div>
                     <div class="col-3">
-                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./public/img/seleccion/sc06.webp" alt="Gohan">                        
+                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./dist/public/img/seleccion/sc06.webp" alt="Gohan">
                     </div>
                     <div class="col-3">
-                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./public/img/seleccion/sc05.webp" alt="Goku">
+                        <img class="img-fluid rounded-circle bg-danger border border-danger" src="./dist/public/img/seleccion/sc05.webp" alt="Goku">
                     </div>
                 </div>
                 <button id="btn_player1" type="button" class="btn btn-danger w-100 mt-4">Aceptar <i class="fa-solid fa-gamepad"></i></button>
@@ -49,16 +49,16 @@
                 <p class="text-danger">Seleccionar personaje</p>
                 <div class="row mt-4">
                     <div class="col-3">
-                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./public/img/seleccion/sc02.webp" alt="Veguetta">
+                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./dist/public/img/seleccion/sc02.webp" alt="Veguetta">
                     </div>
                     <div class="col-3">
-                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./public/img/seleccion/sc08.webp" alt="Cell">
+                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./dist/public/img/seleccion/sc08.webp" alt="Cell">
                     </div>
                     <div class="col-3">
-                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./public/img/seleccion/sc04.webp" alt="Pikoro">                        
+                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./dist/public/img/seleccion/sc04.webp" alt="Pikoro">
                     </div>
                     <div class="col-3">
-                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./public/img/seleccion/sc07.webp" alt="Gogeta">
+                        <img class="img-fluid rounded-circle bg-primary border border-primary" src="./dist/public/img/seleccion/sc07.webp" alt="Gogeta">
                     </div>
                 </div>
                 <button id="btn_player2" type="button" class="btn btn-primary w-100 mt-4">Aceptar <i class="fa-solid fa-gamepad"></i></button>
@@ -73,26 +73,18 @@
                 </div>
                 <div id="controles_jugador1" class="d-none">
                     <label for="vida1" class="text-success">Vida</label>
-                    <div class="progress">
-                        <div id="vida1" class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                    </div>
+                    <div class="progress"><div id="vida1" class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div></div>
                     <label for="ki1" class="text-primary">Ki</label>
-                    <div class="progress">
-                        <div id="ki1" class="progress-bar bg-primary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                    </div>
+                    <div class="progress"><div id="ki1" class="progress-bar bg-primary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div></div>
                     <label for="energia1" class="text-info">Energia</label>
-                    <div class="progress">
-                        <div id="energia1" class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                    </div>
+                    <div class="progress"><div id="energia1" class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div></div>
                     <hr>
-                    <div class="row">
-                        <div class="col">
-                            <button id="btn_atk_basico_1" class="btn btn-warning">ATK Basico</button>
-                            <button id="btn_atk_especial_1" class="btn btn-danger">ATK Especial</button>
-                            <button id="btn_cargar_ki_1" class="btn btn-info">Cargar ki</button>
-                            <button id="btn_semilla_1" class="btn btn-success">Semilla<span id="semilla1" class="badge bg-dark">2</span></button>
-                        </div>
-                    </div>
+                    <div class="row"><div class="col">
+                        <button id="btn_atk_basico_1" class="btn btn-warning">ATK Basico</button>
+                        <button id="btn_atk_especial_1" class="btn btn-danger">ATK Especial</button>
+                        <button id="btn_cargar_ki_1" class="btn btn-info">Cargar ki</button>
+                        <button id="btn_semilla_1" class="btn btn-success">Semilla<span id="semilla1" class="badge bg-dark">2</span></button>
+                    </div></div>
                 </div>
             </div>
             <div id="panel_jugador2" class="col-md-5 d-none ms-auto">
@@ -103,30 +95,22 @@
                 </div>
                 <div id="controles_jugador2" class="d-none">
                     <label for="vida2" class="text-success">Vida</label>
-                    <div class="progress">
-                        <div id="vida2" class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                    </div>
+                    <div class="progress"><div id="vida2" class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div></div>
                     <label for="ki2" class="text-primary">Ki</label>
-                    <div class="progress">
-                        <div id="ki2" class="progress-bar bg-primary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                    </div>
+                    <div class="progress"><div id="ki2" class="progress-bar bg-primary" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div></div>
                     <label for="energia2" class="text-info">Energia</label>
-                    <div class="progress">
-                        <div id="energia2" class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                    </div>
+                    <div class="progress"><div id="energia2" class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div></div>
                     <hr>
-                    <div class="row">
-                        <div class="col text-end">
-                            <button id="btn_atk_basico_2" class="btn btn-warning">ATK Basico</button>
-                            <button id="btn_atk_especial_2" class="btn btn-danger">ATK Especial</button>
-                            <button id="btn_cargar_ki_2" class="btn btn-info">Cargar ki</button>
-                            <button id="btn_semilla_2" class="btn btn-success">Semilla<span id="semilla2" class="badge bg-dark">2</span></button>
-                        </div>
-                    </div>
+                    <div class="row"><div class="col text-end">
+                        <button id="btn_atk_basico_2" class="btn btn-warning">ATK Basico</button>
+                        <button id="btn_atk_especial_2" class="btn btn-danger">ATK Especial</button>
+                        <button id="btn_cargar_ki_2" class="btn btn-info">Cargar ki</button>
+                        <button id="btn_semilla_2" class="btn btn-success">Semilla<span id="semilla2" class="badge bg-dark">2</span></button>
+                    </div></div>
                 </div>
             </div>
         </div>
-    </div>   
-    <script src="./bundle.js"></script> 
+    </div>
+    <script src="./dist/bundle.js"></script>
 </body>
 </html>
