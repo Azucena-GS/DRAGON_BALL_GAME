@@ -9,7 +9,7 @@ module.exports = {
   },
   devServer: {
     static: __dirname, // Sirve index.html desde la raíz del proyecto
-    port: 3000, // Puerto del servidor de desarrollo
+    port: 3001, // Puerto libre para abrir el proyecto con npm run dev
     open: true, // Abre el navegador automáticamente
     hot: true, // Habilita recarga en vivo
   },
