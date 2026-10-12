@@ -25,8 +25,8 @@ class Acciones extends Personaje{
         return this.#ataquesUsadosEnTurno < 1;
     }
 
-    puedeAtacarFuerte(ataquesBasicos){
-        return this.#ataquesUsadosEnTurno < 1 && ataquesBasicos >= 2;
+    puedeAtacarFuerte(){
+        return this.#turno > 2 && this.#ataquesUsadosEnTurno < 1;
     }
 
     atkBasico(){
@@ -41,8 +41,8 @@ class Acciones extends Personaje{
         return true;
     }
 
-    atkEspecial(ataquesBasicos){
-        if (!this.puedeAtacarFuerte(ataquesBasicos)) {
+    atkEspecial(){
+        if (!this.puedeAtacarFuerte()) {
             return false;
         }
 
@@ -54,10 +54,15 @@ class Acciones extends Personaje{
     }
 
     curacion(){
+        if (!this.puedeUsarSemilla()) {
+            return false;
+        }
+
         this.setEnergia(100);
         this.setKi(100);
         this.setVida(100);
         this.setSemilla(this.getSemilla() - 1);
+        return true;
     }
 
     cargaEnergia(){

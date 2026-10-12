@@ -34,17 +34,20 @@ class Personaje{
     getNombre(){
         return this.#nombre;
     }
+    puedeUsarSemilla(){
+        return this.#semilla > 0 && (this.#vida < 100 || this.#ki < 100 || this.#energia < 100);
+    }
     setVida(vida){
-        this.#vida = vida;
+        this.#vida = Math.max(0, Math.min(100, vida));
     }
     setKi(ki){
-        this.#ki = ki;
+        this.#ki = Math.max(0, Math.min(100, ki));
     }
     setEnergia(energia){
-        this.#energia = energia;
+        this.#energia = Math.max(0, Math.min(100, energia));
     }
     setSemilla(semilla){
-        this.#semilla = semilla;
+        this.#semilla = Math.max(0, Math.min(2, semilla));
     }
 }
 

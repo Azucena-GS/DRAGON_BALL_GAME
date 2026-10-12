@@ -25,7 +25,7 @@ let pj1 = "", pj2 = "";
 let jugador1, jugador2;
 let turnoActual = 1;
 let combateTerminado = false;
-let ataquesBasicosEnCombate = 0;
+let combateIniciado = false;
 const DANIO_ATAQUE_BASICO = 10;
 const DANIO_ATAQUE_ESPECIAL = 20;
 
@@ -54,6 +54,19 @@ const actualizarEstadoJugador = (numero, jugador) => {
     }
 };
 
+const mostrarDialogo = (numero, texto) => {
+    const dialogo = document.getElementById(numero === 1 ? "dialogo1" : "dialogo2");
+    dialogo.textContent = texto;
+    dialogo.classList.remove("d-none");
+};
+
+const animarEntrada = (imagen, direccion) => {
+    imagen.animate([
+        { opacity: 0, transform: `translateX(${direccion}px)` },
+        { opacity: 1, transform: "translateX(0)" }
+    ], { duration: 700, easing: "ease-out" });
+};
+
 const danarRival = (numeroAtacante, cantidad) => {
     let numeroRival;
     let rival;
@@ -72,6 +85,7 @@ const danarRival = (numeroAtacante, cantidad) => {
 
     rival.setVida(Math.max(0, rival.getVida() - cantidad));
     actualizarEstadoJugador(numeroRival, rival);
+    mostrarDialogo(numeroRival, "¡Eso dolió!");
 
     if (rival.getVida() > 0) return false;
 
@@ -148,10 +162,10 @@ const actualizarBotonesJugador = (numero, jugador) => {
         botonBasico.disabled = noEsSuTurno || !jugador.puedeAtacarBasico();
     }
     if (botonEspecial) {
-        botonEspecial.disabled = noEsSuTurno || !jugador.puedeAtacarFuerte(ataquesBasicosEnCombate);
+        botonEspecial.disabled = noEsSuTurno || !jugador.puedeAtacarFuerte();
     }
     if (botonCargar) botonCargar.disabled = noEsSuTurno;
-    if (botonSemilla) botonSemilla.disabled = noEsSuTurno;
+    if (botonSemilla) botonSemilla.disabled = noEsSuTurno || !jugador.puedeUsarSemilla();
 };
 
 const cambiarTurno = () => {
@@ -161,20 +175,35 @@ const cambiarTurno = () => {
 };
 
 const mostrarCombate = () => {
-    if (!jugador1 || !jugador2) return;
-
+    if (!jugador1 || !jugador2 || combateIniciado) return;
+    combateIniciado = true;
     nombres.classList.add("d-none");
-    panel_jugador1.classList.remove("d-none");
-    panel_jugador2.classList.remove("d-none");
-    controles_jugador1.classList.remove("d-none");
-    controles_jugador2.classList.remove("d-none");
-    actualizarBotonesJugador(1, jugador1);
-    actualizarBotonesJugador(2, jugador2);
+
+    Swal.fire({
+        title: "Cargando combate...",
+        text: "Los personajes se preparan para luchar",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: false,
+        timer: 1200,
+        didOpen: () => Swal.showLoading()
+    }).then(() => {
+        panel_jugador1.classList.remove("d-none");
+        panel_jugador2.classList.remove("d-none");
+        controles_jugador1.classList.remove("d-none");
+        controles_jugador2.classList.remove("d-none");
+        mostrarDialogo(1, `${pj1}: ¡Estoy listo para luchar!`);
+        mostrarDialogo(2, `${pj2}: ¡Que empiece el combate!`);
+        animarEntrada(img1, -45);
+        animarEntrada(img2, 45);
+        actualizarBotonesJugador(1, jugador1);
+        actualizarBotonesJugador(2, jugador2);
+    });
 };
 
 const confirmarJugador = (numero) => {
     if (numero === 1) {
-        if (nombre1.value === "") {
+        if (nombre1.value.trim() === "") {
             return msj_error("Primero escribe el nombre del jugador 1.");
         }
         if (pj1 === "") {
@@ -192,7 +221,7 @@ const confirmarJugador = (numero) => {
             mostrarCombate();
         }
     } else {
-        if (nombre2.value === "") {
+        if (nombre2.value.trim() === "") {
             return msj_error("Primero escribe el nombre del jugador 2.");
         }
         if (pj2 === "") {
@@ -229,7 +258,7 @@ const iniciar_juego = (numero) => {
 }
 
 const limpiarNombre = (event) => {
-    event.target.value = event.target.value.replace(/[^a-zA-Z0-9]+/, "");
+    event.target.value = event.target.value.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ]/g, "");
 };
 nombre1.addEventListener("input", limpiarNombre);
 nombre2.addEventListener("input", limpiarNombre);
@@ -292,10 +321,10 @@ const ejecutarAtaque = (numero, tipo) => {
             return msj_error(`El jugador ${numero} ya usó su ataque en este turno.`);
         }
     } else {
-        if (ataquesBasicosEnCombate < 2) {
-            return msj_error("Primero se deben realizar 2 ataques básicos.");
+        if (jugador.getTurno() <= 2) {
+            return msj_error("El ataque especial se habilita después del segundo turno de ambos jugadores.");
         }
-        if (!jugador.puedeAtacarFuerte(ataquesBasicosEnCombate)) {
+        if (!jugador.puedeAtacarFuerte()) {
             return msj_error(`El jugador ${numero} ya usó su ataque en este turno.`);
         }
     }
@@ -308,13 +337,14 @@ const ejecutarAtaque = (numero, tipo) => {
     if (tipo === "basico") {
         ataqueCorrecto = jugador.atkBasico();
         cantidadDanio = DANIO_ATAQUE_BASICO;
-        if (ataqueCorrecto) ataquesBasicosEnCombate += 1;
     } else {
-        ataqueCorrecto = jugador.atkEspecial(ataquesBasicosEnCombate);
+        ataqueCorrecto = jugador.atkEspecial();
         cantidadDanio = DANIO_ATAQUE_ESPECIAL;
     }
     if (!ataqueCorrecto) return;
 
+    if (tipo === "basico") mostrarDialogo(numero, "¡Toma eso!");
+    else mostrarDialogo(numero, "¡Ataque especial!");
     animarAtaque(numero, tipo);
     actualizarEstadoJugador(numero, jugador);
     if (danarRival(numero, cantidadDanio)) return;
@@ -332,6 +362,7 @@ const cargarEnergia = (numero) => {
     if (!jugador) return;
     jugador.cargaEnergia();
     actualizarEstadoJugador(numero, jugador);
+    mostrarDialogo(numero, "¡Estoy reuniendo energía!");
     jugador.siguienteTurno();
     cambiarTurno();
 };
@@ -344,8 +375,12 @@ const usarSemilla = (numero) => {
 
     const jugador = obtenerJugador(numero);
     if (!jugador) return;
-    jugador.curacion();
+    if (!jugador.puedeUsarSemilla()) {
+        return msj_error("Solo puedes usar una semilla si te queda alguna y una barra está debajo de 100%.");
+    }
+    if (!jugador.curacion()) return;
     actualizarEstadoJugador(numero, jugador);
+    mostrarDialogo(numero, "¡La semilla me ha curado!");
     jugador.siguienteTurno();
     cambiarTurno();
 };
