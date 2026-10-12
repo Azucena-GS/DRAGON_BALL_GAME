@@ -12,11 +12,11 @@ class Personaje{
     mostrarEstadisticas(){
         console.log(`
             nombre:${this.#nombre},
-            ************************
-            ki:${this.#ki},            
-            vida:${this.#vida},            
-            energia:${this.#energia},            
-            semilla:${this.#semilla},            
+            *********************
+            ki:${this.#ki},
+            vida:${this.#vida},
+            energia:${this.#energia},
+            semilla:${this.#semilla},
         `);
     }
     getVida(){
@@ -26,7 +26,7 @@ class Personaje{
         return this.#ki;
     }
     getEnergia(){
-        return this.#energia
+        return this.#energia;
     }
     getSemilla(){
         return this.#semilla;
